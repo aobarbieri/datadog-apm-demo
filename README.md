@@ -51,9 +51,13 @@ If you decide to automatically instrument this app use `ddtrace-run` instead, yo
 ```DD_SERVICE="py-playground" DD_ENV="test" DD_LOGS_INJECTION=true ddtrace-run python app.py```
 
 2. Run the Application 
-`python3 app.py`
+```
+python3 app.py
+```
 
-#### Once you're done working with the app, deactivate the virtual environment
-```deactivate```
+3. Once you're done working with the app, deactivate the virtual environment
+```
+deactivate
+```
 
 [Agent Commands](https://docs.datadoghq.com/agent/configuration/agent-commands/)
