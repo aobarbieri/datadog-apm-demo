@@ -12,6 +12,7 @@ patch_all()
 from flask import Flask, render_template, request
 import logging
 import json
+from datetime import datetime, timezone
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -20,7 +21,7 @@ app = Flask(__name__)
 class JSONFileHandler(logging.FileHandler):
     def emit(self, record):
         log_entry = {
-            'time': self.formatTime(record, self.datefmt),
+            'time': datetime.fromtimestamp(record.created, tz=timezone.utc).isoformat(),
             'level': record.levelname,
             'message': record.getMessage(),
             'name': record.name,
@@ -33,10 +34,10 @@ class JSONFileHandler(logging.FileHandler):
 # Set up logging with JSON format
 log_file = "app.json.log"
 json_handler = JSONFileHandler(log_file)
-json_handler.setFormatter(logging.Formatter('%(asctime)s'))
 
 logging.basicConfig(
     level=logging.INFO,
+    format='%(message)s',
     handlers=[
         json_handler,              # Logs to a JSON file
         logging.StreamHandler()          # Logs to the console
