@@ -39,20 +39,31 @@ datadog-apm-demo/
 This Flask app will serve a webpage when you access http://127.0.0.1:5000/ in your browser.
 
 # Datadog
-
 ## Logs
 This app logs messages in JSON format to a file named `app.json.log`. Each log entry includes details such as timestamp, log level, message, logger name, file path, and line number. 
-1) Install the Python Integration.
-2) Update the datadog.yaml configuration file to include the log file path.
+??? 1) Install the Python Integration.
+2. Update the datadog.yaml configuration file to include the log file path:
 ```
 logs_enabled: true
 ```
-3) Configure the Datadog Agent to monitor the app.json.log file.
-- Create a new log configuration file
+3. Configure the Datadog Agent to monitor the app.json.log file:
+- Create a `python.d/` folder in the `conf.d/` Agent configuration directory.
+- Create a file `conf.yaml` in the `conf.d/python.d/` directory with the following content and update the path of your log file:
 ```
-sudo nano /etc/datadog-agent/conf.d/python.d/conf.yaml
-```
+init_config:
 
+instances:
+
+##Log section
+logs:
+
+  - type: file
+    path: "/Users/user/datadog-apm-demo/app.json.log" 
+    service: "flask-app"
+    source: python
+    sourcecategory: sourcecode
+```
+- Restart the Agent
 [Log Collection And Integrations](https://docs.datadoghq.com/logs/log_collection/?tab=host)
 
 ## APM
