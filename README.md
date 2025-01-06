@@ -65,6 +65,9 @@ logs:
     sourcecategory: sourcecode
 ```
 - Restart the Agent
+
+* Log File Output: The JSONFileHandler ensures logs are saved in JSON format to the app.json.log file.
+
 [Log Collection And Integrations](https://docs.datadoghq.com/logs/log_collection/?tab=host)
 
 ## APM
@@ -84,6 +87,12 @@ If you decide to automatically instrument this app use `ddtrace-run` instead, yo
 python3 app.py
 ```
 
+## Correlating Python Logs and Traces
+
+* Add global tags in the `datadog.yaml` file which would define metadata that will automatically be attached to all logs, metrics, and traces sent from your application or infrastructure to Datadog. These tags help you filter, group, and analyze your data more effectively within the Datadog platform. Add tags in the format `key:value`, separated by commas.
+  
+* This script is supposed to include the Datadog-specific attributes (`dd.env`, `dd.service`, `dd.version`, `dd.trace_id`, and `dd.span_id`) in the log entries. These attributes will appear in the JSON log records, enabling correlation between logs and traces in Datadog.
+* * Log Injection for File Logs: Attributes like dd.trace_id, dd.span_id, dd.env, and dd.service are extracted from the log record's context and included in the JSON logs.
 
 ### Once you're done working with the app, deactivate the virtual environment
 ```
