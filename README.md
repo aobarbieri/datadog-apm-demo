@@ -4,7 +4,7 @@ Follow the steps below after cloning this repo.
 #### Environment:
 - macOS
 - Python@3.11
-- Pip
+- Pip3
 - Virtual Environment
 - Flask
 - HTML
@@ -20,7 +20,7 @@ The virtual environment is a one-time setup that stores the installed dependenci
 ```source myvenv/bin/activate```
 
 3. Install the dependencies
-```pip install -r requirements.txt```
+```pip3 install -r requirements.txt```
 
 #### The file structure should look like this
 ```
@@ -38,13 +38,30 @@ datadog-apm-demo/
 ```python3 app.py```
 This Flask app will serve a webpage when you access http://127.0.0.1:5000/ in your browser.
 
-## Datadog APM
+# Datadog
+
+## Logs
+This app logs messages in JSON format to a file named `app.json.log`. Each log entry includes details such as timestamp, log level, message, logger name, file path, and line number. 
+1) Install the Python Integration.
+2) Update the datadog.yaml configuration file to include the log file path.
+```
+logs_enabled: true
+```
+3) Configure the Datadog Agent to monitor the app.json.log file.
+- Create a new log configuration file
+```
+sudo nano /etc/datadog-agent/conf.d/python.d/conf.yaml
+```
+
+[Log Collection And Integrations](https://docs.datadoghq.com/logs/log_collection/?tab=host)
+
+## APM
 Host Based - Datadog Agent on the same host as application.
 The Datadog Agent is used to send traces from our tracing libraries.
 Make sure you're in the virtual environment when you install the Datadog Python package or any other dependecy.
 
 1. Install Datadog APM tracing library for Python (ddtrace)
-```pip install ddtrace```
+```pip3 install ddtrace```
 
 We configured Datadog APM programmatically in this Flask app.
 If you decide to automatically instrument this app use `ddtrace-run` instead, you would run your app like this:
@@ -55,7 +72,8 @@ If you decide to automatically instrument this app use `ddtrace-run` instead, yo
 python3 app.py
 ```
 
-3. Once you're done working with the app, deactivate the virtual environment
+
+### Once you're done working with the app, deactivate the virtual environment
 ```
 deactivate
 ```
