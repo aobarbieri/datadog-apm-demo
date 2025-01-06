@@ -29,6 +29,7 @@ datadog-apm-demo/
 ├── app.py
 ├── README.md
 ├── requirements.txt
+├── .gitignore
 ├── myvenv/
 └── templates/
     └── index.html
